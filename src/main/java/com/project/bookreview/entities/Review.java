@@ -34,6 +34,9 @@ public class Review {
     @Column(length = 100, name = "author_name" , nullable = false)
     private String authorName;
     
+      @Column(length = 100, name = "book_name" , nullable = false)
+    private String bookName;
+      
      @Column(length = 100, name = "book_image",nullable = false )
     private String bookImage;
     
@@ -62,16 +65,29 @@ public class Review {
 
  
 
-    public Review(int bookId, String authorName, String bookImage, String bookIntro, String bookFavPart, String bookAudience, Publisher publisher) {
-      
+
+
+    public Review(int bookId, String authorName, String bookName, String bookImage, String bookIntro, String bookFavPart, String bookAudience, Publisher publisher) {
         this.bookId = bookId;
         this.authorName = authorName;
+        this.bookName = bookName;
         this.bookImage = bookImage;
         this.bookIntro = bookIntro;
         this.bookFavPart = bookFavPart;
         this.bookAudience = bookAudience;
         this.publisher = publisher;
     }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+    
+    
+    
 
     public int getReviewId() {
         return reviewId;
