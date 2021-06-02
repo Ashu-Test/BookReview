@@ -42,16 +42,32 @@
     <input type="submit" id="submit" class="client-info" value="Submit">
   
     </form>
-      <button class="social" id="facebook">connect with facebook</button>
-    <button class="social g-signin2"  data-onsuccess="onSignIn"></button>
+      
+      <%@include file="fblogin.jsp" %> 
+    
+    <div class ="social">
+    <div id = "left">
+    
+    <fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+</div>
+ <div id = "right">
+
+    <button class="g-signin2"  data-onsuccess="onSignIn"></button>
+    </div>
+    
+    </div>
+      
+      
+      <!--<button class="social" id="facebook">connect with facebook</button>
+    <button class="social g-signin2"  data-onsuccess="onSignIn"></button>-->
      <!--<h1><div class="g-signin2" data-onsuccess="onSignIn"></div>-->
             
             <!--<a href="#" onclick="signOut();">Sign out</a>-->
             
-            
-            
-
-  </div>
+     </div>
 </div>
 
     </body>
