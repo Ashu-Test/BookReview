@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.HibernateException;
 
 /**
  *
@@ -57,26 +56,23 @@ public class RatingFeedbackServlet extends HttpServlet {
         
           
           
-            // changes required- get user by session  and user cant give rating to same revview again
+ // changes required- get user by session  and user cant give rating to same revview again(due to unique key constraint on reviewId
+
                  User user =   new UserDao(FactoryProvider.getFactory()).getUserByEmail("ashutoshtripathi6937@gmail.com");
                
             Rating rating=new Rating(star, user, revId);
            Feedback feed=new Feedback(feedBack, user, revId);
           
-          int id=0;
-                 UserDao udao=   new UserDao(FactoryProvider.getFactory());
-                        udao.saveRatingFeedback(rating, feed);
-              out.println("sucess");
-//           if(id>0){
-//                        out.println("sucess");
-//                    }
-//                    else{
-//                        //   error
-//                        out.println("error");
-//                    }
+          int id=new UserDao(FactoryProvider.getFactory()).saveRatingFeedback(rating, feed);
+ 
+           if(id>0){
+                        out.println("sucess");
+                    }
+                    else{
+                        // review not added error
+                        out.println("error");
+                    }
             
-        } catch (HibernateException e) {
-            e.printStackTrace();
         }
     }
 
