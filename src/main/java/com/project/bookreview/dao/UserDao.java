@@ -124,22 +124,22 @@ public class UserDao {
     }
     
     
- public void saveRatingFeedback(Rating rating,Feedback feedback){
+ public int saveRatingFeedback(Rating rating,Feedback feedback){
      
         int rId=Integer.MIN_VALUE;
         int fId=0;
         try{
            Session ss=this.factory.openSession();
       Transaction tx=ss.beginTransaction();
-           ss.saveOrUpdate(rating);
-       ss.saveOrUpdate(feedback);
+          rId  =    (int) ss.save(rating);
+          fId  =    (int) ss.save(feedback);
        tx.commit();
        ss.close();
   
            } catch (HibernateException e) {
             e.printStackTrace();
         }
-//        return rId+fId;
+        return rId+fId;
     }    
     
     
