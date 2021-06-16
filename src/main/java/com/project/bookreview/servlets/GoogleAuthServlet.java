@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -86,7 +87,7 @@ if (idToken != null) {
   
   //   now  check if the user already signed in earlier using this google acount 
   //   if  not then save the user to the DB as new user with given email
-  // System.out.println("hhhhhhhhhhhhhhhhhhhhhhhh");
+  // only checking user table becz only normal user will use this  google sign in
    UserDao userDao=  new UserDao(FactoryProvider.getFactory());
    //   System.out.println("ccccccccccc");
      if(userDao.ifUserExists(email)){
@@ -102,7 +103,16 @@ if (idToken != null) {
                 System.out.println("Cant save the google signed in user");  //redirect to error page
             else{
                  System.out.println("Saved the google signed in user userID in Db:-"+uid);
-                 //redirect to rating page
+              
+                 
+                 // saving the current user in the seesion
+                     HttpSession ss=request.getSession();
+                     ss.setAttribute("current-user", user);
+
+
+       //redirect to rating page
+                 
+                 
             } 
             
      }

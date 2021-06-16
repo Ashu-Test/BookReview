@@ -22,6 +22,3 @@
 
     <script src="https://kit.fontawesome.com/e057dff8c2.js" crossorigin="anonymous"></script>
 
-
-<link href="css/styles.css" rel="stylesheet" type="text/css"/>
-<script src="js/script.js" type="text/javascript"></script>

@@ -75,8 +75,53 @@ public class PublisherDao {
      }
      
     
+      //get publisher by email and passowrd for login verification
+    public   Publisher getPublisherByEmailAndPassword(String email, String password){
+      
+       Publisher pub=null;
+        
+        try {
+            
+           String query="from Publisher where publisherEmail =:e and publisherPassword =:p"; 
+            
+            Session session=this.factory.openSession();
+            Query q=session.createQuery(query);
+            q.setParameter("e", email);
+            q.setParameter("p", password);
+            pub=(Publisher)q.uniqueResult();
+            session.close();
+            
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+        return pub;
+       
+        
+    }
      
+    
      
+    public int savePublisher(Publisher publisher){
+     
+        int pId=Integer.MIN_VALUE;
+        
+        try{
+           Session ss=this.factory.openSession();
+      Transaction tx=ss.beginTransaction();
+          pId  =    (int) ss.save(publisher);
+       tx.commit();
+       ss.close();
+  
+           } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return pId;
+    }
+    
      
      
      

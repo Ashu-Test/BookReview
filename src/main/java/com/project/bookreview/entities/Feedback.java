@@ -47,8 +47,8 @@ public class Feedback {
     
     
     
-    @Column(name = "book_id",unique = true,nullable = false )
-    private int bookId;
+    @Column(name = "review_id",unique = true,nullable = false )
+    private int reviewId;
 
     public Feedback() {
     }
@@ -58,7 +58,7 @@ public class Feedback {
     public Feedback(String userFeedback, User user, int bookId) {
         this.userFeedback = userFeedback;
         this.user = user;
-        this.bookId = bookId;
+        this.reviewId = bookId;
     }
 
     
@@ -81,17 +81,17 @@ public class Feedback {
         this.user = user;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getReviewId() {
+        return reviewId;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
     @Override
     public String toString() {
-        return "Feedback{" + "id=" + Id + ", userFeedback=" + userFeedback + ", user=" + user + ", bookId=" + bookId + '}';
+        return "Feedback{" + "id=" + Id + ", userFeedback=" + userFeedback + ", user=" + user + ", reviewId=" + reviewId + '}';
     }
     
     

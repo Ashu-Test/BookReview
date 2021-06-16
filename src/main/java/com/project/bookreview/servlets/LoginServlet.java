@@ -8,6 +8,8 @@ package com.project.bookreview.servlets;
 import com.project.bookreview.dao.AdminDao;
 import com.project.bookreview.dao.PublisherDao;
 import com.project.bookreview.dao.UserDao;
+import com.project.bookreview.entities.Admin;
+import com.project.bookreview.entities.Publisher;
 import com.project.bookreview.entities.User;
 import com.project.bookreview.helper.FactoryProvider;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,28 +49,55 @@ public class LoginServlet extends HttpServlet {
                   UserDao userDao=  new UserDao(FactoryProvider.getFactory());
                   User user=userDao.getUserByEmailAndPassword(email, password);
                   
+                  boolean isAdmin=new AdminDao(FactoryProvider.getFactory()).isAdmin(email);
+                  boolean isPub=new PublisherDao(FactoryProvider.getFactory()).isPublisher(email);
+                  
+                        HttpSession ss=request.getSession();
+                  
+                  // two cases 
+                  //1. credentials are wrong 
+                  //2. he is admin or he is publisher
                   if(user==null){
-                      //show message invalid details 
-                      System.out.println("null user");
-                  }
-                  else{
-                     
-                      // check for user type 
                       
-                      // if its admin 
-                      if(new AdminDao(FactoryProvider.getFactory()).isAdmin(email)){
+                          // if its admin 
+                      if(isAdmin){
+                         //verify admin credentials 
+                    Admin admin=new AdminDao(FactoryProvider.getFactory()).getAdminByEmailAndPassword(email, password);
+                          if(admin!=null){
                             // redirect to admin page
+                             ss.setAttribute("current-user", admin);
+                                 ss.setAttribute("isAdmin", "Y");
+                                response.sendRedirect("admin.jsp");
+                          }
                       }    
-                      else if (new PublisherDao(FactoryProvider.getFactory()).isPublisher(email)){
-                          //redirect to publisher page
+                      else if (isPub){
+                          
+                           //verify admin credentials 
+                     Publisher pub=new PublisherDao(FactoryProvider.getFactory()).getPublisherByEmailAndPassword(email, password);
+                          if(pub!=null){
+                                  //redirect to publisher page
+                               
+                          }
+                  
                       }
-                      // else its a normal user
-                      else{
+                      else{ 
+                      
+                      //show message wrong credentials
+                      System.out.println("null user");
+                      ss.setAttribute("message", "Wrong credentials");
+                      }
+                  }
+                  
+                  // else he is normal user
+                  else{
+                       // saving the current user in the seesion
+               
+                     ss.setAttribute("current-user", user);
+                 
                           //redirect to rating page
                           System.out.println("Normal User");
                           
-                      }
-                      
+                 
                       
                       
                       

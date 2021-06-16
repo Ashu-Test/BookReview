@@ -6,6 +6,7 @@
 package com.project.bookreview.dao;
 
 import com.project.bookreview.entities.Admin;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -50,6 +51,32 @@ public class AdminDao {
         return admin!=null;
     }
     
-    
+     //get admin by email and passowrd for login verification
+    public  Admin getAdminByEmailAndPassword(String email, String password){
+      
+      Admin admin=null;
+        
+        try {
+            
+           String query="from Admin where adminEmail =:e and adminPassword =:p"; 
+            
+            Session session=this.factory.openSession();
+            Query q=session.createQuery(query);
+            q.setParameter("e", email);
+            q.setParameter("p", password);
+            admin=(Admin)q.uniqueResult();
+            session.close();
+            
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+        return admin;
+       
+        
+    }
     
 }

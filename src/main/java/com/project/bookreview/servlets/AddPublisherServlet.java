@@ -7,27 +7,21 @@ package com.project.bookreview.servlets;
 
 import com.project.bookreview.dao.PublisherDao;
 import com.project.bookreview.entities.Publisher;
-import com.project.bookreview.entities.Review;
 import com.project.bookreview.helper.FactoryProvider;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ashut
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 100)
-public class AddReviewServlet extends HttpServlet {
+public class AddPublisherServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,9 +35,9 @@ public class AddReviewServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-            // printing values for testing  
- /*        System.out.println("******started*********");
+           
+   /*            // printing values for testing  
+             System.out.println("******started*********");
             Enumeration<String> names = request.getParameterNames();
 
             while (names.hasMoreElements()) {
@@ -52,70 +46,40 @@ public class AddReviewServlet extends HttpServlet {
                 System.out.println("*******values********");
                 System.out.println(request.getParameter(nn));
             }
-            System.out.println("pic-----" + request.getPart("bookpic").getSubmittedFileName());
+    
             System.out.println("*****ended************");        
+
 */
 
-
-
-
-           String authorName=request.getParameter("Aname");
-           String bookName=request.getParameter("Bname");
-           String bookIntro=request.getParameter("Bintro");
-           String bookFav=request.getParameter("Bfav");
-           String bookAud=request.getParameter("Baud");
-            Part part = request.getPart("bookpic");
-
+            String fname=request.getParameter("Fname");
+              String lname=request.getParameter("Lname");
+                String gender=request.getParameter("gender");
+                  String email=request.getParameter("email");
+                    String password=request.getParameter("password");
+                      String contact=request.getParameter("contact");
+                        String address=request.getParameter("address");
+                        
+          Publisher pub=new Publisher(fname, lname, email, password, gender, contact, address);
+            int pid=new PublisherDao(FactoryProvider.getFactory()).savePublisher(pub);
             
             
+            //saved suucessfully
+            if(pid>0){
             
-           
-            try {
-                  // saving the book image in the folder
-                if (part != null) {
-                    String path = request.getSession().getServletContext().getRealPath("/") + "img" + File.separator + part.getSubmittedFileName();
-               //     System.out.println("paaathhhh--" + path);
-                    FileOutputStream fos = new FileOutputStream(path);
-                    InputStream is = part.getInputStream();
-
-                    byte[] data = new byte[is.available()];
-                    is.read(data);
-
-                    fos.write(data);
-                    fos.flush();
-                    fos.close();
-
-                    
-                    
-                    // now saving the review in the db
-                    // changes required- get publisher by session  and set book id properly
-                    PublisherDao pDao=new PublisherDao(FactoryProvider.getFactory());
-                    Publisher publisher =pDao.getPublisherByEmail("a@a");
-                    Review rev=new  Review(1, authorName, bookName, part.getSubmittedFileName(), bookIntro, bookFav, bookAud, publisher)   ;
-                    
-                    int Rid=pDao.addReview(rev);
-                    
-                    
-                    if(Rid>0){
-                        out.println("sucess");
-                    }
-                    else{
-                        // review not added error
-                        out.println("error");
-                    }
-                } else {
-//                     errror 
-                    //response.sendRedirect("/MYSITE/error_page.jsp");
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                    HttpSession ss = request.getSession();
+                        ss.setAttribute("message", "Publisher Added Successfully with id : "+pid);
+                        response.sendRedirect("admin.jsp");
             }
-
+            else{
+                
+                //error
+                 HttpSession ss = request.getSession();
+                        ss.setAttribute("message", "Something went wrong");
+                        response.sendRedirect("error.jsp");
+            }
         }
     }
 
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

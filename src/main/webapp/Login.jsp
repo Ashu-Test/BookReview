@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +21,33 @@
     </head>
     <body>
       <div id="container">
+          
+          
+           <div class="container-fluid mt-3"> 
+                <%@include file="components/Message.jsp" %>   
+            </div> 
+          
+                  <!--if user is already signed in redirect it to logout page->
+                  
+        <c:set var="userSS" scope="session" value="${sessionScope['current-user']}"   />
+        <!-- <%--       <c:out value="${userSS}"/><br>
+                <c:out value="${userSS.userType}"/><br>     --%>-->
+
+        <c:choose>
+            <c:when test="${userSS!=null}">
+
+                <c:set var="message" scope="session" value="You are already logged in !! First Logout from the current session"   />
+
+                <c:redirect url="Logout.jsp"/>
+
+            </c:when>
+
+     
+        </c:choose> 
+        <!--login validations ends -->
+            
+            
+          
   <div id="left">
     <h1 id="welcome">Welcome</h1>
     <p id="lorem">
@@ -42,32 +69,16 @@
     <input type="submit" id="submit" class="client-info" value="Submit">
   
     </form>
-      
-      <%@include file="fblogin.jsp" %> 
-    
-    <div class ="social">
-    <div id = "left">
-    
-    <fb:login-button 
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
-</div>
- <div id = "right">
-
-    <button class="g-signin2"  data-onsuccess="onSignIn"></button>
-    </div>
-    
-    </div>
-      
-      
-      <!--<button class="social" id="facebook">connect with facebook</button>
-    <button class="social g-signin2"  data-onsuccess="onSignIn"></button>-->
+      <button class="social" id="facebook">connect with facebook</button>
+    <button class="social g-signin2"  data-onsuccess="onSignIn"></button>
      <!--<h1><div class="g-signin2" data-onsuccess="onSignIn"></div>-->
             
             <!--<a href="#" onclick="signOut();">Sign out</a>-->
             
-     </div>
+            
+            
+
+  </div>
 </div>
 
     </body>

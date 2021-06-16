@@ -8,6 +8,18 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.project.bookreview.servlets.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddReviewServlet</servlet-name>
+        <servlet-class>com.project.bookreview.servlets.AddReviewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPublisherServlet</servlet-name>
+        <servlet-class>com.project.bookreview.servlets.AddPublisherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RatingFeedbackServlet</servlet-name>
+        <servlet-class>com.project.bookreview.servlets.RatingFeedbackServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -16,9 +28,36 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddReviewServlet</servlet-name>
+        <url-pattern>/AddReviewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPublisherServlet</servlet-name>
+        <url-pattern>/AddPublisherServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RatingFeedbackServlet</servlet-name>
+        <url-pattern>/RatingFeedbackServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>Home.jsp</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowed.origins</param-name>
+            <param-value>*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 </web-app>

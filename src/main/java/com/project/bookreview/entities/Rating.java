@@ -19,7 +19,7 @@ import javax.persistence.Table;
  *
  * @author ashut
  */
-@Entity(name="User_Rating")
+@Entity
 @Table(name="User_Rating")
 public class Rating {
 
@@ -49,8 +49,8 @@ public class Rating {
     
     
     
-    @Column(name = "book_id",unique = true,nullable = false )
-    private int bookId;
+    @Column(name = "review_id",unique = true,nullable = false )
+    private int reviewId;
 
     public Rating() {
     }
@@ -59,10 +59,10 @@ public class Rating {
     
     
     
-    public Rating(byte userRating, User user, int bookId) {
+    public Rating(byte userRating, User user, int reviewId) {
         this.userRating = userRating;
         this.user = user;
-        this.bookId = bookId;
+        this.reviewId = reviewId;
     }
 
     public byte getUserRating() {
@@ -81,17 +81,17 @@ public class Rating {
         this.user = user;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getReviewId() {
+        return reviewId;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
     @Override
     public String toString() {
-        return "Rating{" + "id=" +id + ", userRating=" + userRating + ", user=" + user + ", bookId=" + bookId + '}';
+        return "Rating{" + "id=" +id + ", userRating=" + userRating + ", user=" + user + ", reviewId=" + reviewId + '}';
     }
 
     
