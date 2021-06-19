@@ -51,13 +51,13 @@ public class AddPublisherServlet extends HttpServlet {
 
 */
 
-            String fname=request.getParameter("Fname");
-              String lname=request.getParameter("Lname");
-                String gender=request.getParameter("gender");
-                  String email=request.getParameter("email");
-                    String password=request.getParameter("password");
-                      String contact=request.getParameter("contact");
-                        String address=request.getParameter("address");
+            String fname=request.getParameter("Fname").trim();
+              String lname=request.getParameter("Lname").trim();
+                String gender=request.getParameter("gender").trim();
+                  String email=request.getParameter("email").trim();
+                    String password=request.getParameter("password").trim();
+                      String contact=request.getParameter("contact").trim();
+                        String address=request.getParameter("address").trim();
                         
           Publisher pub=new Publisher(fname, lname, email, password, gender, contact, address);
             int pid=new PublisherDao(FactoryProvider.getFactory()).savePublisher(pub);

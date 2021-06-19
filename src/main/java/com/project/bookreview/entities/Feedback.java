@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author ashut
  */
 @Entity
-        @Table(name="User_Feedback")
+        @Table(name="User_Feedbacks")
 public class Feedback {
 
       @Id
@@ -42,12 +42,12 @@ public class Feedback {
     
     
     @ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "User_ID")
+	@JoinColumn(name = "User_ID",nullable = false)
       private User user;
     
     
     
-    @Column(name = "review_id",unique = true,nullable = false )
+    @Column(name = "review_id",nullable = false )
     private int reviewId;
 
     public Feedback() {

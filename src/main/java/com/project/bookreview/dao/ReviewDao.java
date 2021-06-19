@@ -6,6 +6,8 @@
 package com.project.bookreview.dao;
 
 import com.project.bookreview.entities.Review;
+import com.project.bookreview.entities.Rating;
+import com.project.bookreview.entities.Feedback;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,7 +41,7 @@ public class ReviewDao {
       
   }  
     
- 
+//  get  all review by review id
      public Review getrReviewById(int rid){
 
           Review review=null;
@@ -55,5 +57,51 @@ s.close();
 return review;
 
 }   
-    
+   
+     
+     
+      
+    // get all reviews  of given publisher
+     public  List<Review> getAllReviewsById( int pid ){
+        Session s=this.factory.openSession();
+        Query q=s.createQuery("from Review as r where r.publisher.publisherId =:id");
+        q.setParameter("id", pid);
+        List<Review> list=q.list();
+        
+        
+        return list;
+        
+    }
+     
+     // get all ratings on a review using review id
+  public List<Rating>   getRatingOnReviewById(int rid){
+       Session s=this.factory.openSession();
+        Query q=s.createQuery("from Rating as r where r.reviewId=:id");
+        q.setParameter("id", rid);
+        List<Rating> list=q.list();
+        
+        
+        return list;  
+         
+         
+         
+         
+     }
+     
+   // get all feedbacks on a review using review id
+  public List<Feedback>   getFeedbacksOnReviewById(int rid){
+       Session s=this.factory.openSession();
+        Query q=s.createQuery("from Feedback as f where f.reviewId =:id");
+        q.setParameter("id", rid);
+        List<Feedback> list=q.list();
+        
+        
+        return list;  
+         
+         
+         
+         
+     }   
+     
+     
 }

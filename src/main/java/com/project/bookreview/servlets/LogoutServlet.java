@@ -5,14 +5,8 @@
  */
 package com.project.bookreview.servlets;
 
-import com.project.bookreview.dao.UserDao;
-import com.project.bookreview.entities.Feedback;
-import com.project.bookreview.entities.Rating;
-import com.project.bookreview.entities.User;
-import com.project.bookreview.helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ashut
  */
-public class RatingFeedbackServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,43 +31,15 @@ public class RatingFeedbackServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-     
-  /*                     // printing values for testing  
-             System.out.println("******started*********");
-            Enumeration<String> names = request.getParameterNames();
-
-            while (names.hasMoreElements()) {
-                String nn = names.nextElement();
-                System.out.println(nn);
-                System.out.println("*******values********");
-                System.out.println(request.getParameter(nn));
-            }
-    
-            System.out.println("*****ended************");        
-*/
-    byte star=Byte.parseByte(request.getParameter("rating").trim());
-       String feedBack=request.getParameter("feedBack").trim();
-          int revId=Integer.parseInt(request.getParameter("revId").trim());   
         
-           HttpSession ss=request.getSession();
-           User user = (User) ss.getAttribute("current-user");
-          
- // changes required-  user cant give rating without login  2. user should not be able to  give rating to same review again( make changes in Review.jsp)
-
-         
-               
-            Rating rating=new Rating(star, user, revId);
-           Feedback feed=new Feedback(feedBack, user, revId);
-          
-          int id=new UserDao(FactoryProvider.getFactory()).saveRatingFeedback(rating, feed);
-            System.err.println(id);
-           if(id>0){
-                        out.println("sucess");
-                    }
-                    else{
-                        // review not added error
-                        out.println("error");
-                    }
+            // changes required
+            //sign out google signed in and fb signed in user too
+            
+                HttpSession ss=request.getSession();
+            ss.removeAttribute("current-user");            ss.removeAttribute("isAdmin");   ss.removeAttribute("publisher");
+            response.sendRedirect("Login.jsp");
+            
+            
             
         }
     }

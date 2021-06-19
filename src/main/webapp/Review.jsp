@@ -32,7 +32,7 @@
 
     </head>
     <body>
-    
+            <%@include  file="components/navbar.jsp" %>
 
 
 
@@ -81,7 +81,12 @@
                 
                 
                
+<%-- 
+ if user already given rating to this review id dont show this page
 
+make method in userDao (Select * from Rting & Feedback where reviewid=revid(login) and userid=uid(login)
+
+--%>
 
 <div class='rating-box'>
 <form class='rating-form'>
@@ -148,6 +153,9 @@
             
         </div>
                                 
-                                
+                    <div id="About" class="container-fluid" style=" position: relative;margin: 0px!important;padding:0px!important">
+                <%@include file="components/footer.jsp" %> 
+
+            </div>                        
     </body>
 </html>

@@ -126,8 +126,8 @@ public class UserDao {
     
  public int saveRatingFeedback(Rating rating,Feedback feedback){
      
-        int rId=Integer.MIN_VALUE;
-        int fId=0;
+        int rId=-1999;
+        int fId=-1999;
         try{
            Session ss=this.factory.openSession();
       Transaction tx=ss.beginTransaction();

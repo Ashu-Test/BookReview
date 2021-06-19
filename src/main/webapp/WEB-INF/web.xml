@@ -20,6 +20,10 @@
         <servlet-name>RatingFeedbackServlet</servlet-name>
         <servlet-class>com.project.bookreview.servlets.RatingFeedbackServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.project.bookreview.servlets.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>RatingFeedbackServlet</servlet-name>
         <url-pattern>/RatingFeedbackServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
