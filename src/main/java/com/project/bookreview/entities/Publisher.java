@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author ashut
  */
 @Entity
-        @Table(name="Publisher_table")
+        @Table(name="Publisher_table", cascade = CascadeType.ALL)
 public class Publisher {
 
     @Id
