@@ -56,7 +56,7 @@ public class Review {
     
     
     
-       @ManyToOne(cascade = CascadeType.ALL)
+       @ManyToOne
 	@JoinColumn(name = "Publisher_ID")
       private Publisher publisher;
 
