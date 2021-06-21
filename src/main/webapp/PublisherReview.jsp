@@ -200,7 +200,7 @@ List<Feedback> feedList=rDao.getFeedbacksOnReviewById(rid);
 
 
 
-
+<a href="DeleteServlet?rid=<%=rev.getReviewId()%>" class="btn btn-danger">Delete This Review</a>
 
 
 
