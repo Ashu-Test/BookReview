@@ -87,6 +87,31 @@
 make method in userDao (Select * from Rting & Feedback where reviewid=revid(login) and userid=uid(login)
 
 --%>
+                <% 
+
+User user12 = (User) session.getAttribute("current-user");
+int uid = user12.getUserId();
+//User u=new UserDao(FactoryProvider.getFactory()).alreadyReviewed(rid);
+Rating rating =new UserDao(FactoryProvider.getFactory()).alreadyReviewed(rid,uid);//2 
+System.out.println(rating);
+
+if(!(rating==null)){ 
+	
+	
+	
+	HttpSession httpsession = request.getSession();
+httpsession.setAttribute("message", "Already Reviewed This Book");
+%>
+<%@include file = "components/Message.jsp"%>
+<% 		
+			return;
+	
+	
+ }
+else{
+ 
+	%>
+	 
 
 <div class='rating-box'>
 <form class='rating-form'>
@@ -143,7 +168,7 @@ make method in userDao (Select * from Rting & Feedback where reviewid=revid(logi
 
 
 
-
+<% } %>
 
 
 
