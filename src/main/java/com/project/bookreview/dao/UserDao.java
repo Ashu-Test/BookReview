@@ -144,7 +144,7 @@ public class UserDao {
     
     
     
-    
+    //checking if already reviewed
      public Rating alreadyReviewed(int rid,int uid) {
     	Rating rating=null;
     	
