@@ -145,7 +145,33 @@ public class UserDao {
     
     
     
-    
+     public Rating alreadyReviewed(int rid,int uid) {
+    	Rating rating=null;
+    	
+    	 try {
+             
+             String query="from Rating as p where p.reviewId =:e and p.user.userId =:u " ; // 15 1 nikh 2     15 2 ashu 3
+              
+              Session session=this.factory.openSession();
+              Query q=session.createQuery(query);
+              q.setParameter("e", rid);
+              q.setParameter("u", uid);
+              rating  =(Rating) q.uniqueResult();
+              session.close();
+              
+          } catch (HibernateException e) {
+              e.printStackTrace();
+          }
+          
+          
+          
+          
+          return rating; 
+         
+          
+      
+    	
+    }
     
     
     
