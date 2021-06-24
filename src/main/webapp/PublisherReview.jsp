@@ -153,15 +153,50 @@ List<Feedback> feedList=rDao.getFeedbacksOnReviewById(rid);
                                 out.println("<h2>No Ratings yet </h2>");
                             }      %>  
                             
-                            <h1>Feedbacks</h1>
-                            <%   for(Feedback feed:feedList){      %>              
+   
+                              <h1>Feedbacks</h1>
+                             <!-- displaying feedback with user name -->
+                              
+                              
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Feedback</th>
+      
+    </tr>
+  </thead>
+  
+  <tbody>
+   <% int i=0;   for(Feedback feed:feedList){   
+	  
+	 
+	   
+	   %>
+    <tr>
+      <th scope="row"><%=++i%></th>
+      <td><%=feed.getUser().getUserName()%></td>
+      <td><%=feed.getUserFeedback()%></td>
+    
+    </tr>
+    <% } %>
+    
+  </tbody>
+  
+</table>
+                            
+                            
+                            
+                            
+                                       
                                  
                                  
-                               <h3><%=feed.getUserFeedback()   %></h3>
+                             <%--   <h3><%=feed.getUser().getUserName()%> --> <%=feed.getUserFeedback()%>> </h3> --%>
 
-                            <%      } if (feedList.size() == 0) {
+                            <%      if (feedList.size() == 0) {
                                 out.println("<h2>No Feedbacks yet </h2>");
-                            }      %>  
+                            }      %> 
                             
                             
                             
