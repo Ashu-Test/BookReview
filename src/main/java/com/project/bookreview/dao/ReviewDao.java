@@ -102,6 +102,22 @@ return review;
          
          
      }   
-     
+    //getting rating on particular review by userid
+      public Rating  getRatingOnReviewByUserId(int uid,int rid){
+      Session s=this.factory.openSession();
+       Query q=s.createQuery("from Rating as r where r.reviewId=:i r.user.userId=:id");
+       q.setParameter("i", rid);
+       q.setParameter("id", uid);
+       Rating rating = (Rating) q.uniqueResult();
+       
+       
+       return rating;  
+        
+        
+        
+        
+    }
+    
+    
      
 }
