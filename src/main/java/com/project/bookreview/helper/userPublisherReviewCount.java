@@ -40,6 +40,36 @@ public class userPublisherReviewCount {
         return map;
         
     }
+    //counting number of books published by publisher
+    
+     public static Long getPublisherReviewCount(int pid) {
+    	  
+    	  Long count =0L;
+      	
+     	 try {
+              
+              String query="Select count (r.reviewId) from Review as r where r.publisher.publisherId =:p " ;
+               
+               Session session= FactoryProvider.getFactory().openSession();
+               Query q=session.createQuery(query);
+               q.setParameter("p", pid);
+              
+               count =  (Long) q.uniqueResult();
+               session.close();
+               
+           } catch (HibernateException e) {
+               e.printStackTrace();
+           }
+           
+           
+           
+           
+           return count; 
+     	
+     }
+    
+    
+    
     
     
     
