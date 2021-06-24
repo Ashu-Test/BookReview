@@ -172,6 +172,24 @@ public class UserDao {
       
     	
     }
+ //getting all users.
+  public List<User> getAllUsers(){
+    	 Session s=this.factory.openSession();
+         Query query=s.createQuery("from User");
+         List<User> list=query.list();
+         
+         s.close();
+         
+         return list;
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    }
+    
     
     
     
