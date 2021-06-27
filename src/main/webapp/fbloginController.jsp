@@ -13,25 +13,29 @@
 <% String user_name=(String)request.getParameter("user_name");
 String user_email=(String)request.getParameter("user_email"); 
 UserDao userDao=  new UserDao(FactoryProvider.getFactory());
-
+HttpSession ss=request.getSession();
   if(userDao.ifUserExists(user_email)){
         // System.out.println("User Already exists");
-         out.println("User Already exists");
+        // out.println("User Already exists");
         
-         // redirect to rating page
+         User user=userDao.getUserByEmail(user_email);
+         ss.setAttribute("current-user", user);
+         response.sendRedirect("Home.jsp");
   }
   else{
          System.out.println("User Already not exists");   
-         User user=new User(user_name,user_email,"default","default","default");
+         User user1=new User(user_name,user_email,"default","default","default");
          
-         int uid=userDao.saveUser(user);
+         int uid=userDao.saveUser(user1);
          if(uid<0)
              System.out.println("Cant save the google signed in user");  //redirect to error page
          else{
-              System.out.println("Saved the google signed in user userID in Db:-"+uid);
+             /*  System.out.println("Saved the google signed in user userID in Db:-"+uid);
               
-             out.println("Successfully logged in"+user_email);
+             out.println("Successfully logged in"+user_email); */
               //redirect to rating page
+               ss.setAttribute("current-user", user1);
+              response.sendRedirect("Home.jsp");
          } 
          
   }
