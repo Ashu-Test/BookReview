@@ -17,6 +17,7 @@
 
   <%@include file="components/common_css_js.jsp" %>   
     <link href="css/loginCSS.css" rel="stylesheet" type="text/css"/>
+  
         <script src="js/loginJS.js" type="text/javascript"></script>
     </head>
     <body>
@@ -71,8 +72,21 @@
     <input type="submit" id="submit" class="client-info" value="Submit">
   
     </form>
-      <button class="social" id="facebook">connect with facebook</button>
-    <button class="social g-signin2"  data-onsuccess="onSignIn"></button>
+     <%@include file="fblogin.jsp" %>
+     
+     <div class="container text-center"> 
+      <button class="g-signin2"  data-onsuccess="onSignIn"></button><br> <br>
+     
+    <fb:login-button  
+  scope="public_profile,email"
+  onlogin="checkLoginState();">Continue with Facebook</fb:login-button>
+  
+  
+  </div>  
+  
+
+   <!--    <button class="social" id="facebook" >connect with facebook</button> -->
+    
      <!--<h1><div class="g-signin2" data-onsuccess="onSignIn"></div>-->
             
             <!--<a href="#" onclick="signOut();">Sign out</a>-->
