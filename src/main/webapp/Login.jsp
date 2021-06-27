@@ -75,7 +75,7 @@
      <%@include file="fblogin.jsp" %>
      
      <div class="container text-center"> 
-      <button class="g-signin2"  data-onsuccess="onSignIn"></button><br> <br>
+      <button class="g-signin2"  data-onsuccess="onSignIn"></button><br> <br> 
      
     <fb:login-button  
   scope="public_profile,email"
