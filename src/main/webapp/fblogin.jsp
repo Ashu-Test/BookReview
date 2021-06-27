@@ -56,7 +56,7 @@
  FB.api('/me?fields=name,email', function(response) {
  console.log('Successful login for: ' + response.name); 
  
- document.getElementById("status").innerHTML = '<p>'+response.name+'! <a href=fbloginController.jsp?user_name='+ response.name.replace(" ", "_") +'&user_email='+ response.email +'>Continue with facebook login</a></p>'
+ document.getElementById("status").innerHTML = '<p>'+ "Hey!! " + response.name+' <a href=fbloginController.jsp?user_name='+ response.name.replace(" ", "_") +'&user_email='+ response.email +'>Continue Here </a></p>'
  });
  } 
 </script> 
